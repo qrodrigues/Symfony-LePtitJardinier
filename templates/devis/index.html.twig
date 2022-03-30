@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Devis - LePtitJardinier
+{% endblock %}
+
+{% block content %}
+	<style></style>
+
+	<div class="mt-5 ms-5">
+		<div class="card" style="width: 60rem;">
+			<div class="card-body">
+				<h2 class="card-title">Confirmation du devis</h2>
+				<h4 class="card-subtitle mb-2 text-muted">
+					{% if typeuser == "entreprise" %}
+						Vous êtes une {{typeuser}}.
+					{% else %}
+					Vous êtes un {{typeuser}}.
+					{% endif %}
+					
+				</h4>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm">
+							<h5 class="card-subtitle mb-2 mt-1 text-decoration-underline">Détails de la commande :</h5>
+							<p class="card-text ms-4">
+								{% for selection in selectionHaies %}
+								{{selection.haie}}
+								de
+								<strong>{{selection.longueur}}
+									mètres</strong>
+								par
+								<strong>{{selection.hauteur}}
+									mètres</strong>.<br>
+								{% endfor %}
+							</p>
+							<h5 class="card-subtitle mb-2 mt-1 text-decoration-underline">Détails du prix :</h5>
+							<p class="card-text ms-4">
+								{% for selection in selectionHaies %}
+									Prix unitaire <i>({{selection.haie}})</i> : {{selection.prixunitaire}}€<br>
+										<span class="ms-3">Prix avec les dimensions : {{selection.prixmultiplie}}€</span>
+									<br>
+								{% endfor %}
+									<hr class="my-1 w-25">
+									<div class="ms-4">
+									Prix total : {{montantAvantRemise}}€<br>
+									{% if not remise == 0 %}
+									Remise <i>({{typeuser}})</i> : {{remise * 100}}%<br>
+									Réduction : -{{montantRemise}}€<br>
+									Prix après remise : {{montantApresRemise}}€
+									{% endif %}
+									</div>
+							</p>
+						</div>
+					</div>
+					<br>
+					<h3 class="text-end">Montant total :
+						<strong>{{montantApresRemise}}€</strong>
+					</h3>
+				</div>
+
+				<div class="float-end d-inline-flex">
+					<a href="{{path('choix')}}" class="btn btn-danger me-2">Annuler</a>
+					<form method="post" action="{{path('devis')}}">
+						<input type="submit" class="btn btn-primary" value="Confirmer"></input>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

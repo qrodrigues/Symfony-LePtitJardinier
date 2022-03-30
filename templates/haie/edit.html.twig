@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %} {% block title %}Modifier haie -
+LePtitJardinier{% endblock %} {% block content %}
+
+<div class="container float-start ms-5 mt-5">
+  <h1>Modifier une haie</h1>
+  <div class="d-inline-flex ms-5">
+  </div>
+    {{ include("haie/_form.html.twig", { button_label: "Mettre à jour" }) }}
+    {{ include("haie/_delete_form.html.twig") }}
+  <div class="container mt-3">
+    <a href="{{ path('haie_index') }}">Afficher les haies</a>
+  </div>
+</div>
+
+{% endblock %}

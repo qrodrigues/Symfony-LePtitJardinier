@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consultation - LePtitJardinier{% endblock %}
+
+{% block content %}
+<style>
+</style>
+
+<div class="consultation-section">
+    <h2>Liste des haies</h2>
+    <table>
+        <thead>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Catégorie</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for ligne in lesHaies %}
+                <tr>
+                    <td>{{ligne.getCode()}}</td>
+                    <td>{{ligne.getNom()}}</td>
+                    <td>{{ligne.getPrix()}}</td>
+                    <td>{{ligne.getCategorie().getLibelle()}}</td>
+                    <td><a href="{{ path('modifier', { 'code': ligne.getCode() }) }}">Consultation/Modification</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

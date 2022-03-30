@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mesure - LePtitJardinier
+{%
+endblock %}
+{% block content %}
+	<style></style>
+	<div class="d-flex d-inline-flex w-100">
+		<div class="container">
+			<div class="choix-section">
+				<h1>Création d'un devis</h1>
+				<h2>Taille de la haie ?</h2>
+				<form class="formMesure" action="{{ path('mesure') }}" method="post">
+					<select name="typehaie" id="typehaie" required>
+						<option value="" disabled selected>
+							-- Choisir votre type de haie --
+						</option>
+						{% for haie in lesHaies %}
+							<option value="{{ haie.code }}">{{ haie.getNom() }} ({{haie.prix}}€)</option>
+						{% endfor %}
+					</select><br/>
+					<div class="longueurHauteur">
+						<div class="longueur">
+							Longueur (en mètre) :
+							<input type="number" name="longueur" required/>
+						</div>
+						<div class="hauteur">
+							Hauteur (en mètre) :
+							<input type="number" name="hauteur" required/>
+						</div>
+					</div>
+					<br/>
+					<input type="submit" value="Ajouter"/>
+				</form>
+			</div>
+		</div>
+		{% if not mesures is empty %}
+			<div class="container p-3 me-3" style="width: 1500px;margin-top: 80px; border:2px; border-style: dashed">
+				<h4>Votre sélection :</h4>
+				<div class="row">
+					{% for mesure in mesures %}
+						<div class="col-sm-6">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">
+										<u>{{mesure.typehaie}}</u>
+									</h5>
+									<p class="card-text">
+										Longueur :
+										<b>{{mesure.longueur}}
+											mètres</b><br>
+										Hauteur :
+										<b>{{mesure.hauteur}}
+											mètres</b><br>
+                    Prix :
+										<b>{{mesure.prix}}€</b><br>
+									</p>
+									{# <form action="{{ path('mesure') }}" method="post">
+                    <input type="hidden" name="id" value="{{loop.index}}">
+										<button type="submit">Delete</button>
+									</form> #}
+									<a href="{{ path('mesure', {id: loop.index}) }}" class="btn btn-warning">Supprimer</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+          <div class="float-end pt-2">
+            <a class="btn btn-lg btn-outline-primary" href="{{ path('devis') }}">Faire le devis</a>
+          </div>
+				{% else %}
+					<div class="container"></div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

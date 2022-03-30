@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs - LePtitJardinier{% endblock %}
+
+{% block content %}
+
+<div class="container float-start ms-5 mt-5">
+    <h1>Liste des utilisateurs</h1>
+    <form action="{{path('utilisateur_index')}}" method="POST">
+        <label class="ms-5" for="">Recherche par nom : </label>
+        <input name="nom" class="ms-2" style="width:250px" type="search" placeholder="Entrez un nom..."></input>
+        <input type="submit" value="Rechercher" class="ps-2 pe-2">
+    </form>
+    <table class="table ms-5"
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifiant de connexion</th>
+                {# <th>Roles</th> #}
+                {# <th>Mot de passe</th> #}
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Type de client</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.username }}</td>
+                {# <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td> #}
+                {# <td>{{ utilisateur.password }}</td> #}
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>{{ utilisateur.adresse }}</td>
+                <td>{{ utilisateur.ville }}</td>
+                <td>{{ utilisateur.cp }}</td>
+                <td>{{ utilisateur.typeClient }}</td>
+                <td>
+                    <div class="d-inline-flex">
+                        <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Afficher</a>
+                    <a class="ms-2" href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Modifier</a>
+                    <form class="ms-2" method="post" action="{{ path('utilisateur_delete', {'id': utilisateur.id}) }}" onsubmit="return confirm('Êtes vous sur de vouloir supprimer ce client ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.id) }}">
+                        <button style="
+                        background: none;
+                        color: #0d6efd;
+                        text-decoration: underline;
+                        border: none;
+                        padding: 0;
+                        font: inherit;
+                        cursor: pointer;
+                        outline: inherit;
+                        ">Supprimer</button>
+                    </form>
+                    </div>
+                    
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Aucun client trouvé...</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if erreur %}
+        <div class="alert alert-danger ms-5 w-100" role="alert">
+            Cet utilisateur ne peut pas être supprimé, veuillez d'abord supprimer ses devis.
+        </div>
+    {% endif %}
+    <a href="{{ path('inscription') }}">Inscrire un nouveau client</a>
+</div>
+{% endblock %}

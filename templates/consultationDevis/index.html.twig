@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %} {% block title %}Liste devis - LePtitJardinier{%
+endblock %} {% block content %}
+<style></style>
+<div class="container float-start">
+  <h1 class="mt-5 ms-3">Liste des devis :</h1>
+  <div class="container float-start ms-5 mt-2">
+    <table class="table table-striped table-hover w-100">
+      <thead>
+        <tr>
+          <td>#</td>
+          <td>Client</td>
+          <td>Date</td>
+          <td>Montant</td>
+          <td style="width: 300px">Haies</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for devis in liste %}
+        <tr>
+          <td>{{ devis.devis.no }}</td>
+          <td>{{devis.user}}</td>
+          <td>{{devis.devis.date|date("d/m/Y à h:i", "Europe/Paris")}}</td>
+          <td>{{ devis.devis.montant }}€</td>
+          <td>
+            <details>
+              <summary>Afficher</summary>
+              {% for tailler in devis.tailler %}
+              {{ tailler.CodeHaie }} de {{ tailler.hauteur }}m x
+              {{ tailler.longueur }}m<br />
+              {% endfor %}
+            </details>
+          </td>
+          <td>
+            <a href="{{ path('devis_index', { id: devis.devis.no }) }}"
+              >Annuler</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

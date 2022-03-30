@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - LePtitJardinier
+{% endblock %}
+
+{% block content %}
+	<style></style>
+	{% if confirmDevis %}
+		<div class="alert alert-primary w-25 mt-2 ms-2" role="alert" style="z-index: 10; position: fixed;">
+			Le devis a été créé avec succès !
+		</div>
+	{% endif %}
+	<div class="accueil-section">
+		<h1>Le p'tit jardinier</h1>
+		<h2>Des professionnels à votre service</h2>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<a href="{{ path('choix') }}">Obtenir un devis en ligne pour une taille de haie</a>
+		{% else %}
+			<p style="color: blue"><u>Connectez-vous pour obtenir un devis en ligne</u></p>
+		{% endif %}
+	</div>
+	<img class="jardinier" src="{{ asset('images/jardinier.png') }}">
+{% endblock %}

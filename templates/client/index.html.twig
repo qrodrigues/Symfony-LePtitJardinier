@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %} {% block title %}Clients - LePtitJardinier{%
+endblock %} {% block content %}
+<div class="client">
+  <h1>Liste des clients</h1>
+
+<div class="container float-start">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Adresse</th>
+        <th>Ville</th>
+        <th>Cp</th>
+        <th>Type client</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody class="align-middle">
+      {% for client in clients %}
+      <tr>
+        <td>{{ client.id }}</td>
+        <td>{{ client.nom }}</td>
+        <td>{{ client.prenom }}</td>
+        <td>{{ client.adresse }}</td>
+        <td>{{ client.ville }}</td>
+        <td>{{ client.cp }}</td>
+        <td>{{ client.typeClient }}</td>
+        <td class="td-action">
+          <a href="{{ path('client_show', { id: client.id }) }}">Afficher</a>
+          <a href="{{ path('client_edit', { id: client.id }) }}">Modifier</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="8">Aucun client trouvé...</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{{ path('client_new') }}" class="new-client-table">Créer un nouveau client</a>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{path('accueil')}}">LePtitJardinier</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Gestion des devis
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{ path('choix') }}">Nouveau devis</a>
+						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+						<li>
+							<a class="dropdown-item" href="{{path('devis_index')}}">Consulter les devis</a>
+						</li>
+						{% endif %}
+						<li></li>
+					</ul>
+				</li>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Gestion des haies
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{ path('haie_new') }}">Nouvelle haie</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('haie_index') }}">Consulter les haies</a>
+						</li>
+						<li></li>
+					</ul>
+				</li>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Gestion des clients
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{ path('inscription') }}">Nouveau client</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('utilisateur_index') }}">Consulter les clients</a>
+						</li>
+						<li></li>
+					</ul>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+		<div class="d-flex align-items-center">
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a class="navbar-brand">
+					Connecté en tant que
+					{{app.user.username}}.
+					<a href="{{path('deconnexion')}}" title="Se déconnecter"><img src="{{ asset('images/logout.png') }}" style="filter: invert(100);" alt="" width="28" height="28" class="d-inline-block align-text-top me-2"></a>
+				</a>
+			{% else %}
+				{# <a class="btn btn-outline-light" type="submit" href="{{path('connexion')}}">Se connecter</a> #}
+				<div class="btn-group">
+					<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						Se connecter
+					</button>
+					<div class="dropdown-menu dropdown-menu-end" style="min-width: 300px;">
+						<form class="px-4 py-3" action="{{path('navbar')}}" method="post">
+							<div class="mb-3">
+								<label for="exampleDropdownFormEmail1" class="form-label">Identifiant</label>
+								<input name="_username" type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="Identifiant">
+							</div>
+							<div class="mb-3">
+								<label for="exampleDropdownFormPassword1" class="form-label">Mot de passe</label>
+								<input type="password" class="form-control" id="exampleDropdownFormPassword1" name="_password" placeholder="Mot de passe">
+							</div>
+							<div>
+							</div>
+							<p class="small fw-bold mt-2 pt-1 mb-3">Pas de compte ? <a href="{{path('inscription')}}"
+                			class="link-danger">S'inscrire</a></p>
+							<div class="d-flex justify-content-center"><input type="submit" class="btn btn-primary" value="Se connecter"></input>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		{% endif %}
+	</div>
+</div></nav>

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix - LePtitJardinier
+{% endblock %}
+
+{% block content %}
+	<style></style>
+	<div class="choix-section">
+		<h1>Création d'un devis</h1>
+		<h2>Vous êtes connecté en tant que
+			{{user.nom}}
+			{{user.prenom}}. <i>({{user.typeClient}})</i></h2>
+		<div class="alert alert-warning w-50" role="alert">
+            {% if user.typeClient == "entreprise" %}
+                Les entreprises disposent d'une réduction de 10%.
+            {% else %}
+                Les particuliers ne disposent pas de réduction.
+            {% endif %}
+		</div>
+        <a class="btn btn-outline-primary" href="{{ path('mesure') }}">Continuer</a>
+	</div>
+{% endblock %}

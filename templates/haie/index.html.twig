@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de haie - LePtitJardinier
+{% endblock %}
+
+{% block content %}
+<div class="container ms-5 mt-5">
+	<h1>Liste de haies :</h1>
+
+	<table class="table w-75 ms-5">
+		<thead>
+			<tr>
+				<th>Code</th>
+				<th>Nom</th>
+				<th>Prix</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for haie in haies %}
+				<tr>
+					<td>{{ haie.code }}</td>
+					<td>{{ haie.nom }}</td>
+					<td>{{ haie.prix }}€</td>
+					<td>
+                    <div class="d-inline-flex">
+						<a href="{{ path('haie_show', {'code': haie.code}) }}">Afficher</a>
+						<a class="ms-2" href="{{ path('haie_edit', {'code': haie.code}) }}">Modifier</a>
+						<form class="ms-2" method="post" action="{{ path('haie_delete', {'code': haie.code}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir supprimer cette haie ?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ haie.code) }}">
+							<button style="
+                        background: none;
+                        color: #0d6efd;
+                        text-decoration: underline;
+                        border: none;
+                        padding: 0;
+                        font: inherit;
+                        cursor: pointer;
+                        outline: inherit;
+                        ">Supprimer</button>
+						</form>
+                    </div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">Aucune haie trouvée...</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('haie_new') }}">Créer une nouvelle haie</a>
+</div>
+{% endblock %}

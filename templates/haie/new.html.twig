@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation haie - LePtitJardinier{% endblock %}
+
+{% block content %}
+<div class="container ms-5 mt-5">
+    
+    <h1>Créer une nouvelle haie</h1>
+    <div class="container ms-4 mb-2">
+    
+        {{ include('haie/_form.html.twig') }}
+        
+    </div>
+        <a href="{{ path('haie_index') }}">Retourner à la liste de haies</a>
+</div>
+{% endblock %}

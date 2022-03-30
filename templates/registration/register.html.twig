@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %} {% block title %}Inscription - LePtitJardinier {%
+endblock %} {% block content %}
+{% if isUpdate is defined %}
+  <div class="ms-4 mt-3">
+    <a href="{{path('utilisateur_index')}}">Retourner à la liste de clients</a>
+  </div>
+{% endif %}
+<h1 class="text-center mt-4 mb-3">{{tiltle}}</h1>
+{{ form_start(registrationForm) }}
+<form>
+  <div class="container align-middle border border-2 border-dark rounded p-4">
+    <div class="container">
+    <h3>Informations de connexion</h3>
+    <hr class="mb-4">
+  </div>
+    <div class="container">
+      <div class="form-group">
+        {{ form_row(registrationForm.username, {label:'Identifiant','attr': {'class': 'form-control', 'type':'text','placeholder':'Identifiant'
+
+        }})}}
+        <small id="emailHelp" class="form-text text-muted"
+          >Cet identifiant sera utilisé lors de la connexion.</small
+        >
+      </div>
+      <div class="form-group mt-2">
+        {{ form_row(registrationForm.plainPassword, {label:'Mot de passe','attr': {'class': 'form-control', 'type':'password','placeholder':'Mot de passe'
+
+        }})}}
+      </div>
+    </div>
+    <div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h3 class="mt-5">Informations personnelles</h3>
+    <hr class="mb-4">
+  </div>
+</div>
+    <div class="container">
+      <div class="d-flex flex-row">
+        <div class="form-group w-50">
+          {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control', 'type':'text','placeholder':'Nom'
+
+          }})}}
+        </div>
+        <div class="form-group w-50 ms-5">
+          {{ form_row(registrationForm.prenom, {label:'Prénom','attr': {'class': 'form-control', 'type':'text','placeholder':'Prénom'
+
+          }})}}
+        </div>
+      </div>
+        <div class="form-group mt-2">
+          {{ form_row(registrationForm.adresse, {'attr': {'class': 'form-control', 'type':'text','placeholder':'adresse'
+
+          }})}}
+        </div>
+        <div class="d-flex flex-row mt-2">
+            <div class="form-group col">
+          {{ form_row(registrationForm.ville, {label:'Ville','attr': {'class': 'form-control', 'type':'text','placeholder':'Ville'
+
+          }})}}
+            </div>
+            <div class="form-group col ms-3">
+          {{ form_row(registrationForm.cp, {label:'Code postal','attr': {'class': 'form-control', 'type':'text','placeholder':'Code postal'
+
+          }})}}
+            </div>
+            <div class="form-group col ms-3">
+          {{ form_row(registrationForm.type_client, {label:'Type de client','attr': {'class': 'form-select', 'type':'text','placeholder':'Type de client'
+
+          }})}}
+            </div>
+        </div>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto mt-5">
+        <button type="submit" class="btn btn-primary" style="border-radius: 10px">{{action}}</button>
+    </div>
+  </div>
+
+
+{{ form_row(registrationForm._token) }}
+</form>
+{{ form_end(registrationForm) }}
+{% endblock %}

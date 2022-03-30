@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %} {% block title %}Utilisateurs - LePtitJardinier{%
+endblock %} {% block content %}
+<div class="container float-start ms-5 mt-5">
+  <h1>Détails de {{ utilisateur.nom }} {{ utilisateur.prenom }}</h1>
+
+  <div class="container float-start ms-5" style="width: 500px">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Id</th>
+          <td>{{ utilisateur.id }}</td>
+        </tr>
+        <tr>
+          <th>Identifiant de connexion</th>
+          <td>{{ utilisateur.username }}</td>
+        </tr>
+        {#
+        <tr>
+          <th>Roles</th>
+          <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+        </tr>
+        <tr>
+          <th>Password</th>
+          <td>{{ utilisateur.password }}</td>
+        </tr>
+        #}
+        <tr>
+          <th>Nom</th>
+          <td>{{ utilisateur.nom }}</td>
+        </tr>
+        <tr>
+          <th>Prénom</th>
+          <td>{{ utilisateur.prenom }}</td>
+        </tr>
+        <tr>
+          <th>Adresse</th>
+          <td>{{ utilisateur.adresse }}</td>
+        </tr>
+        <tr>
+          <th>Ville</th>
+          <td>{{ utilisateur.ville }}</td>
+        </tr>
+        <tr>
+          <th>Code postal</th>
+          <td>{{ utilisateur.cp }}</td>
+        </tr>
+        <tr>
+          <th>Type de client</th>
+          <td>{{ utilisateur.typeClient }}</td>
+        </tr>
+      </tbody>
+    </table>
+<div class="d-inline-flex mb-2">
+    <a
+      class="btn btn-outline-primary me-3"
+      href="{{ path('utilisateur_edit', { id: utilisateur.id }) }}"
+      >Modifier ce client</a
+    >
+    {{ include("utilisateur/_delete_form.html.twig") }}<br />
+</div><br>
+<a href="{{ path('utilisateur_index') }}"
+      >Retourner à la liste de clients</a
+    >
+  </div>
+</div>
+
+{% endblock %}
